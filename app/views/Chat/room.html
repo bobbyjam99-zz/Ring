@@ -1,0 +1,88 @@
+#{extends 'main.html' /}
+#{set title:'Basic Chat room' /}
+
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="#">Ring</a>
+          <ul class="nav">
+            <li class="active"><a href="@{leave(user)}">Home</a></li>
+          </ul>
+          <form class="pull-right">
+            <button class="btn"><a href="@{leave(user)}">退出</a></button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header">
+          <h1>${user}'s Timeline</h1>
+        </div>
+        <div class="row">
+          <div id="newMessage" class="span16">
+              #{form @say(user)}
+          <input type="textarea" class="xxlarge" id="message" name="message" autocomplete="off">
+          <input type="submit" class="btn primary" value="投稿" id="send">
+      #{/}
+          </div>
+          <div id="thread" class="span16">
+      #{list events}
+          #{if _.type == 'message'}
+              <div class="message ${_.user == user ? 'you' : ''}">
+                  <h3></h3>
+                  <p>
+                    <strong>${_.user}</strong> : ${_.text} : ${_.date.format('yy/MM/dd hh:mm:ss')}
+                  </p>
+              </div>
+          #{/if}
+          #{if _.type == 'join'}
+              <div class="message notice">
+                  <h4>${_.user} joined the room</h4>
+                  <p>
+                      
+                  </p>
+              </div>
+          #{/if}
+          #{if _.type == 'leave'}
+              <div class="message notice">
+                  <h4>${_.user} left the room</h4>
+                  <p>
+                      
+                  </p>
+              </div>
+          #{/if}
+      #{/list}
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>Powered by Play Framework.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+<script type="text/javascript" charset="${_response_encoding}">
+
+    // Scroll the messages panel to the end
+    var scrollDown = function() {
+        $('#thread').scrollTo('max')
+    }
+
+    // Reload the whole messages panel
+    var refresh = function() {
+        $('#thread').load('@{room(user)} #thread .message', function() {
+            scrollDown()
+        })
+    }
+    
+    // Call refresh every 5 seconds
+    setInterval(refresh, 5000)
+    
+    scrollDown()
+    
+</script>
