@@ -3,24 +3,28 @@
 
 <div id="home">
 
-    <h2>The Play's Chat demonstration</h2>
+    <div class="row show-grid">
 
-    <div id="signin">
+    <div class="span10 offset6">
+      <img src="/public/images/ring.png" />
+
+      <div id="signin">
         #{form @enter()}
-            #{if flash.error}
-                <div class="alert-message error">
-                    <p>${flash.error}</p>
-                </div>
-            #{/if}
-            <p>
-                <label for="nick">Choose a nick name</label>
-                <input type="text" name="user" id="user">
-            </p>
-            <p>
-                <label></label>
-                <input type="submit" id="enter" value="Enter the chat room">
-            </p>
+          #{if flash.error}
+              <div class="alert-message error">
+                  <p>${flash.error}</p>
+              </div>
+          #{/if}
+          <p>
+              <label for="nick">Please Input Your Nickname</label>
+              <input type="text" name="user" id="user">
+          </p>
+          <p>
+              <label></label>
+              <input type="submit" class="btn primary" id="enter" value="入室">
+          </p>
         #{/form}
+      </div>
     </div>
 
 </div>

@@ -10,7 +10,7 @@
             <li class="active"><a href="@{leave(user)}">Home</a></li>
           </ul>
           <form class="pull-right">
-            <button class="btn"><a href="@{leave(user)}">退出</a></button>
+            <button class="btn"><a href="@{leave(user)}">退室</a></button>
           </form>
         </div>
       </div>
@@ -41,7 +41,7 @@
           #{/if}
           #{if _.type == 'join'}
               <div class="message notice">
-                  <h4>${_.user} joined the room</h4>
+                  <h4>${_.user} さんが入室しました</h4>
                   <p>
                       
                   </p>
@@ -49,7 +49,7 @@
           #{/if}
           #{if _.type == 'leave'}
               <div class="message notice">
-                  <h4>${_.user} left the room</h4>
+                  <h4>${_.user} さんが退室しました</h4>
                   <p>
                       
                   </p>
@@ -80,8 +80,8 @@
         })
     }
     
-    // Call refresh every 5 seconds
-    setInterval(refresh, 5000)
+    // Call refresh every 10 seconds
+    setInterval(refresh, 10000)
     
     scrollDown()
     
