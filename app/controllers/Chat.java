@@ -3,14 +3,27 @@ package controllers;
 import java.util.List;
 
 import models.ChatRoom;
+import models.Message;
+import models.User;
 import play.mvc.Controller;
 
+/**
+ * 
+ * チャット部屋
+ *
+ */
 public class Chat extends Controller {
 
-    public static void index(String user) {
+    /**
+     * 
+     * 入室
+     */
+    public static void index(String name) {
 
-        ChatRoom.get().join(user);
-        room(user);
+        User user = User.findById(name);
+        List<Message> message = getMessages();
+        ChatRoom.get().join(name);
+        room(name);
     }
 
     public static void room(String user) {
@@ -19,12 +32,43 @@ public class Chat extends Controller {
         render(user, events);
     }
 
-    public static void say(String user, String message) {
+    /**
+     * 
+     * 発言一覧.
+     */
+    public static List<Message> getMessages() {
 
-        ChatRoom.get().say(user, message);
-        room(user);
+        return Message.all().fetch(100);
     }
 
+    /**
+     * 
+     * 入室しているユーザ一覧.
+     */
+    public static void getRoomUser() {
+
+    }
+
+    /**
+     * 
+     * 発言
+     */
+    public static void say(String name, String message) {
+
+        if (message == null || message.trim().equals("")) {
+            return;
+        }
+        User user = User.findById(name);
+
+        new Message(user, message).save();
+
+        room(name);
+    }
+
+    /**
+     * 
+     * 退出
+     */
     public static void leave(String user) {
 
         ChatRoom.get().leave(user);

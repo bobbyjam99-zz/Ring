@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Basic Chat room' /}
+#{set title:'Project Chat room' /}
 
 
     <div class="topbar">
@@ -10,7 +10,7 @@
             <li class="active"><a href="@{leave(user)}">Home</a></li>
           </ul>
           <form class="pull-right">
-            <button class="btn"><a href="@{leave(user)}">退室</a></button>
+            <button class="btn danger"><a href="@{leave(user)}">退出</a></button>
           </form>
         </div>
       </div>
@@ -24,10 +24,10 @@
         </div>
         <div class="row">
           <div id="newMessage" class="span16">
-              #{form @say(user)}
-          <input type="textarea" class="xxlarge" id="message" name="message" autocomplete="off">
-          <input type="submit" class="btn primary" value="投稿" id="send">
-      #{/}
+            #{form @say(user)}
+              <input type="text" class="span12" id="message" name="message" autocomplete="off" placeholder="発言内容をここに入力して下さい"></textarea>
+              <input type="submit" class="btn primary" value="発言" id="send">
+            #{/}
           </div>
           <div id="thread" class="span16">
       #{list events}
@@ -41,7 +41,7 @@
           #{/if}
           #{if _.type == 'join'}
               <div class="message notice">
-                  <h4>${_.user} さんが入室しました</h4>
+                  <h4>${_.user} 入室しました</h4>
                   <p>
                       
                   </p>
@@ -49,7 +49,7 @@
           #{/if}
           #{if _.type == 'leave'}
               <div class="message notice">
-                  <h4>${_.user} さんが退室しました</h4>
+                  <h4>${_.user} 退出しました</h4>
                   <p>
                       
                   </p>
